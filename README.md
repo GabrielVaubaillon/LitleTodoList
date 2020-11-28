@@ -6,14 +6,19 @@ Petite gestion en ligne de commandes de ma todo list. Deadlines, taches recurent
 ### Commandes
  - list : (list) : liste l'ensemble des taches
  - add : (add [name] [deadline]) : ajoute/créé une nouvelle tache
+ - remove : (remove [id]) : retire la tache correspondant à l'id
  - save : (save) : Met à jour le fichier de sauvegarde (peut etre faire ça après chaque modif, à réfléchir)
 
 
 ## Notes de développement
 
 **deadline :  20-decembre (2020)**
- - Faire un journal pendant la création, en plus des commits
 
+### TODO next time
+ - tri des taches dans dates croissantes
+ - Dates sans l'année en param de add
+ - gestion de add intelligente (pas besoin de tout préciser à chaque fois)
+ - ajout de l'attribut priorité
 
 ### Idées pour le programme todo list
  - interface style console "todo add title=Exercice 3 priority=High cat=Signaux date=18-11"

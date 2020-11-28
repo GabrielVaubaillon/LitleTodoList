@@ -1,5 +1,7 @@
 import tache
 import fichiers
+
+import datetime as dt
 import os #Pour écrire/supprimer les fichiers, TODO : surement une meilleure technique
 
 #------------------------------------------------------------------------------
@@ -7,7 +9,7 @@ import os #Pour écrire/supprimer les fichiers, TODO : surement une meilleure te
 #------------------------------------------------------------------------------
 
 #Le fichier de sauvegarde des taches
-nameFichier = ""
+nameFichier = "todo.ltdl"
 
 
 
@@ -19,14 +21,27 @@ nameFichier = ""
 def addTache(commande):
     #commande de la forme ["add", "name", "deadline"]
     name = commande[1]
-    description = commande[2]
-    listeTaches.append(tache.Tache(name, description))
+    #deadline = dt.date()
+    if commande[2] == "today":
+        deadline = dt.date.today()
+    else:
+        deadline = dt.date.fromisoformat(commande[2])
+
+    listeTaches.append(tache.Tache(name = name, deadline = deadline))
+
+#Supprime la tache en ieme position dans la liste générale :
+def removeTache(commande):
+    id = int(commande[1])
+    print("Effectuer la suppression de ",listeTaches[id].getName(), "? [O/n] :  ", end="")
+    if input() in ["O","o",""]:
+        del listeTaches[id]
 
 
 #Affiche toutes les taches
 def listTaches(commande):
-    for t in listeTaches:
-        print(tache.getName())
+    for i in range(len(listeTaches)):
+        t = listeTaches[i]
+        print("-",i,":",t.getName(), "   ", t.strDeadline())
 
 
 #------------------------------------------------------------------------------
@@ -48,6 +63,7 @@ while running:
     commande = commande.split(" ")
 
     if commande[0] in ["q","exit","quit"]:
+        fichiers.write(listeTaches, nameFichier)
         running = False
 
     if commande[0] == "list":
@@ -55,3 +71,9 @@ while running:
 
     if commande[0] == "add":
         addTache(commande)
+
+    if commande[0] == "remove":
+        removeTache(commande)
+
+    if commande[0] == "save":
+        fichiers.write(listeTaches, nameFichier)
