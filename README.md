@@ -1,11 +1,21 @@
 # LitleTodoList
 Petite gestion en ligne de commandes de ma todo list. Deadlines, taches recurentes, priorités et catégories
 
+## Actual README
+
+### Commandes
+ - list : (list) : liste l'ensemble des taches
+ - add : (add [name] [deadline]) : ajoute/créé une nouvelle tache
+ - save : (save) : Met à jour le fichier de sauvegarde (peut etre faire ça après chaque modif, à réfléchir)
+
+
+## Notes de développement
+
 **deadline :  20-decembre (2020)**
  - Faire un journal pendant la création, en plus des commits
 
 
-## Idées pour le programme todo list:
+### Idées pour le programme todo list
  - interface style console "todo add title=Exercice 3 priority=High cat=Signaux date=18-11"
  - ajouter des taches
  - categories (Polytech/Hobby/Famille/Santé...)
@@ -23,21 +33,27 @@ Petite gestion en ligne de commandes de ma todo list. Deadlines, taches recurent
  - fonction donne une tache random par rapport à la durée donnée, dans une certaine
     catégorie, avec plus de chance de tomber sur les taches haute priorité
  - ~~Ce serait cool en C ou en shell, mais python marchera tout aussi bien je pense~~ On va partir sur du python, possibilité de refaire ça autrement une autre fois
+ - recherche par mot clef?? si je finis en avance, peut etre ...
+ - archive des taches effectuées
 
  - Fichier avec header contenant toutes les infos importantes
     Premiere ligne nom/description en une phrase/attributs
     reste, description précise/avancée
 
-## En cours/Prévision/Ordre
+### En cours/Prévision/Ordre
 
- - faire fonctionner avec juste les fonctionnalités de bases (nom/description/deadline)
+ - faire fonctionner avec juste les fonctionnalités de bases (nom/description/deadline/ajout/suppression)
  - ajout des fonctionnalités dans cet ordre :
     - affichage par dates
     - priorités
     - catégories
+    - date prévue d'execution
     - standbye
     - recurrente
-    - date prévue d'execution
     - durée prévue
     - hierarchie des taches (division/dependantes)
     - random tache
+    - archive
+    - recherche par mot clef??
+
+### Idées d'amélioration
