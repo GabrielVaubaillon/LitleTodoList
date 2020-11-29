@@ -32,6 +32,9 @@ def addTache(commande):
             else:
                 t.setDeadline(dt.date.fromisoformat(param[1]))
 
+        if param[0] in ["p", "priorite"]:
+            t.setPriorite(int(priorite))
+
         if param[0] in ["dc", "description"]:
             t.setDescription(param[1])
 

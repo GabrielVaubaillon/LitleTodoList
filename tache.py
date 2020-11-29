@@ -4,10 +4,12 @@ class Tache:
 
     # Constructeur :
     #---------------
-    def __init__(self, name, deadline=None, description = " "):
+    def __init__(self, name, deadline=None, description = " ",
+                    priorite=0):
         self.name = name
         self.deadline = deadline
         self.description = description
+        self.priorite = priorite
 
     def setName(self, name):
         self.name = name
@@ -17,6 +19,9 @@ class Tache:
 
     def setDescription(self, description):
         self.description = description
+
+    def setPriorite(self, priorite):
+        self.priorite = priorite
 
     # Méthodes :
     #-----------
@@ -31,6 +36,7 @@ class Tache:
     def strSave(self):
         ch = self.name + "\\"
         ch += self.deadline.isoformat() + "\\"
+        ch += self.priorite + "\\"
         ch += self.description + "\\"
         return ch
 
@@ -39,6 +45,8 @@ class Tache:
 def fromSaveToTache(save):
     save = save.split("\\")
     name = save[0]
-    deadline = dt.date.fromisoformat(save[1])
-    description = save[2]
-    return Tache(name, deadline, description)
+    t = Tache(name)
+    t.setDeadline(dt.date.fromisoformat(save[1]))
+    t.setPriorite(int(save[2]))
+    t.setDescription(save[3])
+    return t
