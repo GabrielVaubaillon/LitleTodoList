@@ -19,15 +19,23 @@ nameFichier = "todo.ltdl"
 
 #Créée une tache à partir de la commande, l'ajoute dans la liste des taches
 def addTache(commande):
-    #commande de la forme ["add", "name", "deadline"]
     name = commande[1]
-    #deadline = dt.date()
-    if commande[2] == "today":
-        deadline = dt.date.today()
-    else:
-        deadline = dt.date.fromisoformat(commande[2])
+    t = tache.Tache(name = name)
 
-    listeTaches.append(tache.Tache(name = name, deadline = deadline))
+    for i in range(1, len(commande)):
+
+        param = commande[i].split("=")
+
+        if param[0] in ["d", "date"]:
+            if param[1] == "today":
+                t.setDeadline(dt.date.today())
+            else:
+                t.setDeadline(dt.date.fromisoformat(param[1]))
+
+        if param[0] in ["dc", "description"]:
+            t.setDescription(param[1])
+
+    listeTaches.append(t)
 
 #Supprime la tache en ieme position dans la liste générale :
 def removeTache(commande):

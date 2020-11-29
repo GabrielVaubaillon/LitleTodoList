@@ -1,24 +1,33 @@
 # LitleTodoList
 Petite gestion en ligne de commandes de ma todo list. Deadlines, taches recurentes, priorités et catégories
 
-## Actual README
+## __Actual README__
 
 ### Commandes
  - list : (list) : liste l'ensemble des taches
- - add : (add [name] [deadline]) : ajoute/créé une nouvelle tache
+ - add : (add [name] [parametres]) : ajoute/créé une nouvelle tache
+    - parametres : [cmd]=[value] ; les parametres non précisés recevrons une valeur par défaut  
+    cmd:
+        - d or date : d=2020-12-24 : donne la deadline de la tache
+        - dc or description : dc=Penser_à_faire_ça_comme_ceci : une courte description pour mieux comprendre la tache
  - remove : (remove [id]) : retire la tache correspondant à l'id
  - save : (save) : Met à jour le fichier de sauvegarde (peut etre faire ça après chaque modif, à réfléchir)
 
 
-## Notes de développement
+## __Notes de développement__
 
 **deadline :  20-decembre (2020)**
 
 ### TODO next time
  - tri des taches dans dates croissantes
  - Dates sans l'année en param de add
- - gestion de add intelligente (pas besoin de tout préciser à chaque fois)
  - ajout de l'attribut priorité
+
+### Corrections à effectuer
+ - permettre l'utilisation d'espaces dans les descriptions
+ - empecher deux taches d'avoir le meme nom
+ - possibilité de supprimer plusieurs taches en meme temps
+ - affichage d'une seule tache, avec sa description
 
 ### Idées pour le programme todo list
  - interface style console "todo add title=Exercice 3 priority=High cat=Signaux date=18-11"
@@ -60,5 +69,3 @@ Petite gestion en ligne de commandes de ma todo list. Deadlines, taches recurent
     - random tache
     - archive
     - recherche par mot clef??
-
-### Idées d'amélioration

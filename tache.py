@@ -9,6 +9,14 @@ class Tache:
         self.deadline = deadline
         self.description = description
 
+    def setName(self, name):
+        self.name = name
+
+    def setDeadline(self, deadline):
+        self.deadline = deadline
+
+    def setDescription(self, description):
+        self.description = description
 
     # Méthodes :
     #-----------
@@ -16,7 +24,8 @@ class Tache:
         return self.name
 
     def strDeadline(self):
-        return self.deadline.strftime("%A %d %B")
+        if self.deadline != None:
+            return self.deadline.strftime("%A %d %B")
 
     #Retourne la chaine de caractere de sauvegarde de la tache
     def strSave(self):
