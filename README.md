@@ -11,6 +11,9 @@ Petite gestion en ligne de commandes de ma todo list. Deadlines, taches recurent
         - d or date : d=2020-12-24 : donne la deadline de la tache
         - dc or description : dc=Penser_à_faire_ça_comme_ceci : une courte description pour mieux comprendre la tache
         - p or priorite : p=[entier] : 5 par défaut, les plus importantes à 10, les moins importantes à 0
+ - modif : (modif [id] [parametres]) : permet de modifier les caracteristiques de la ID, voir les parametres de la commande add  
+    - parametre supplémentaire par rapport à add :
+        - name : permet de changer le nom
  - remove : (remove [id]) : retire la tache correspondant à l'id
  - save : (save) : Met à jour le fichier de sauvegarde (peut etre faire ça après chaque modif, à réfléchir)
 
@@ -23,7 +26,6 @@ Petite gestion en ligne de commandes de ma todo list. Deadlines, taches recurent
  - Dates sans l'année en param de add
  - Faire une commande list complete (ça va etre la plus importante pour savoir
    ce qu'il y a à faire)
- - rajouter une commande modif, pour pouvoir modifier les taches existantes
 
 ### Corrections à effectuer
  - permettre l'utilisation d'espaces dans les descriptions
@@ -34,6 +36,7 @@ Petite gestion en ligne de commandes de ma todo list. Deadlines, taches recurent
  - Ajouter la commande help pour toutes les autres commandes
  - affichage d'une seule tache, avec sa description
  - rajouter la possibilité d'utiliser rm à la place de remove
+ - Penser à rajouter les commandes qu'on rajoute dans add dans modif
 
 ### Idées pour le programme todo list
  - interface style console "todo add title=Exercice 3 priority=High cat=Signaux date=18-11"

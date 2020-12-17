@@ -40,6 +40,34 @@ def addTache(commande):
 
     listeTaches.append(t)
 
+#Modifie les caracteristiques de la tache choisie et dans la liste des taches
+def modifTache(commande):
+    id = int(commande[1])
+
+    t = listeTaches[id]
+
+    for i in range(1, len(commande)):
+
+        param = commande[i].split("=")
+
+        if param[0] in ["n","name"]:
+            t.setName(param[1])
+
+        if param[0] in ["d", "date"]:
+            if param[1] == "today":
+                t.setDeadline(dt.date.today())
+            else:
+                t.setDeadline(dt.date.fromisoformat(param[1]))
+
+        if param[0] in ["p", "priorite"]:
+            t.setPriorite(int(priorite))
+
+        if param[0] in ["dc", "description"]:
+            t.setDescription(param[1])
+
+
+
+
 #Supprime la tache en ieme position dans la liste générale :
 def removeTache(commande):
     id = int(commande[1])
@@ -86,6 +114,9 @@ while running:
 
     if commande[0] == "add":
         addTache(commande)
+
+    if commande[0] == "modif":
+        modifTache(commande)
 
     if commande[0] == "remove":
         removeTache(commande)
