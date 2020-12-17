@@ -20,7 +20,6 @@ Petite gestion en ligne de commandes de ma todo list. Deadlines, taches recurent
 **deadline :  20-decembre (2020)**
 
 ### TODO next time
- - tri des taches dans dates croissantes
  - Dates sans l'année en param de add
  - Faire une commande list complete (ça va etre la plus importante pour savoir
    ce qu'il y a à faire)
@@ -30,7 +29,11 @@ Petite gestion en ligne de commandes de ma todo list. Deadlines, taches recurent
  - permettre l'utilisation d'espaces dans les descriptions
  - empecher deux taches d'avoir le meme nom
  - possibilité de supprimer plusieurs taches en meme temps
+ - Au lieu de faire crasher le programme quand il y a une mauvaise commande,
+ afficher l'aide de cette commande
+ - Ajouter la commande help pour toutes les autres commandes
  - affichage d'une seule tache, avec sa description
+ - rajouter la possibilité d'utiliser rm à la place de remove
 
 ### Idées pour le programme todo list
  - interface style console "todo add title=Exercice 3 priority=High cat=Signaux date=18-11"

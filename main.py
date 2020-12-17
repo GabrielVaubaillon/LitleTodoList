@@ -50,8 +50,12 @@ def removeTache(commande):
 
 #Affiche toutes les taches
 def listTaches(commande):
-    for i in range(len(listeTaches)):
-        t = listeTaches[i]
+    listeAffichage = listeTaches[:]
+    if len(commande) > 1 and commande[1] == "date":
+        listeAffichage.sort(key= lambda tache : tache.getDate())
+
+    for i in range(len(listeAffichage)):
+        t = listeAffichage[i]
         print("-",i,":",t.getName(), "   ", t.strDeadline())
 
 

@@ -5,7 +5,7 @@ class Tache:
     # Constructeur :
     #---------------
     def __init__(self, name, deadline=None, description = " ",
-                    priorite=0):
+                    priorite=5):
         self.name = name
         self.deadline = deadline
         self.description = description
@@ -28,6 +28,9 @@ class Tache:
     def getName(self):
         return self.name
 
+    def getDate(self):
+        return self.deadline
+
     def strDeadline(self):
         if self.deadline != None:
             return self.deadline.strftime("%A %d %B")
@@ -36,7 +39,7 @@ class Tache:
     def strSave(self):
         ch = self.name + "\\"
         ch += self.deadline.isoformat() + "\\"
-        ch += self.priorite + "\\"
+        ch += str(self.priorite) + "\\"
         ch += self.description + "\\"
         return ch
 
