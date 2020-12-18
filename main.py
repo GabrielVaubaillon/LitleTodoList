@@ -17,10 +17,21 @@ nameFichier = "todo.ltdl"
 #       Fonctions
 #------------------------------------------------------------------------------
 
+#Permet de récupérer l'emplacement de la tache id dans la liste
+def getIndiceTache(id):
+    i = 0
+    while listeTaches[i].getId() != id:
+        i += 1
+    return i
+
+
 #Créée une tache à partir de la commande, l'ajoute dans la liste des taches
 def addTache(commande):
+    global NEWID
+
     name = commande[1]
-    t = tache.Tache(name = name)
+    t = tache.Tache(name = name, id = NEWID)
+    NEWID += 1
 
     for i in range(1, len(commande)):
 
@@ -42,9 +53,9 @@ def addTache(commande):
 
 #Modifie les caracteristiques de la tache choisie et dans la liste des taches
 def modifTache(commande):
-    id = int(commande[1])
+    indice = getIndiceTache(int(commande[1]))
 
-    t = listeTaches[id]
+    t = listeTaches[indice]
 
     for i in range(1, len(commande)):
 
@@ -70,10 +81,10 @@ def modifTache(commande):
 
 #Supprime la tache en ieme position dans la liste générale :
 def removeTache(commande):
-    id = int(commande[1])
-    print("Effectuer la suppression de ",listeTaches[id].getName(), "? [O/n] :  ", end="")
+    indice = getIndiceTache(int(commande[1]))
+    print("Effectuer la suppression de ",listeTaches[indice].getName(), "? [O/n] :  ", end="")
     if input() in ["O","o",""]:
-        del listeTaches[id]
+        del listeTaches[indice]
 
 
 #Affiche toutes les taches
@@ -84,7 +95,7 @@ def listTaches(commande):
 
     for i in range(len(listeAffichage)):
         t = listeAffichage[i]
-        print("-",i,":",t.getName(), "   ", t.strDeadline())
+        print("-",t.getId(),":",t.getName(), "   ", t.strDeadline())
 
 
 #------------------------------------------------------------------------------
@@ -97,6 +108,11 @@ print("\n\nLitleTodoList :)\n------------\n\n")
 #Liste de toutes les taches :
 listeTaches = []
 fichiers.readTaches(listeTaches, nameFichier)
+
+#On stocke dans cette variable globale le plus grand identifiant dispo
+#Les identifiants changent à chaque recharge de la sauvegarde. On ne fait
+#que les augmenter durant toute l'execution, meme si suppressions
+NEWID = len(listeTaches)
 
 
 running = True

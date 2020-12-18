@@ -4,8 +4,9 @@ class Tache:
 
     # Constructeur :
     #---------------
-    def __init__(self, name, deadline=None, description = " ",
+    def __init__(self, name, id, deadline=None, description = " ",
                     priorite=5):
+        self.id = id
         self.name = name
         self.deadline = deadline
         self.description = description
@@ -28,6 +29,9 @@ class Tache:
     def getName(self):
         return self.name
 
+    def getId(self):
+        return self.id
+
     def getDate(self):
         return self.deadline
 
@@ -45,10 +49,10 @@ class Tache:
 
 
 #Retourne la Tache correspondant à la chaine de caractere de sauvegarde
-def fromSaveToTache(save):
+def fromSaveToTache(save, id):
     save = save.split("\\")
     name = save[0]
-    t = Tache(name)
+    t = Tache(name, int(id))
     t.setDeadline(dt.date.fromisoformat(save[1]))
     t.setPriorite(int(save[2]))
     t.setDescription(save[3])
