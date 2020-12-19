@@ -15,7 +15,6 @@
  afficher l'aide de cette commande
  - Ajouter la commande help pour toutes les autres commandes
  - affichage d'une seule tache, avec sa description
- - rajouter la possibilité d'utiliser rm à la place de remove, ls pour list
  - Penser à rajouter les commandes qu'on rajoute dans add dans modif
 
 ### Idées pour le programme todo list

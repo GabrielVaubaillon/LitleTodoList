@@ -125,7 +125,7 @@ while running:
         fichiers.write(listeTaches, nameFichier)
         running = False
 
-    if commande[0] == "list":
+    if commande[0] in ["list", "ls"]:
         listTaches(commande)
 
     if commande[0] == "add":
@@ -134,7 +134,7 @@ while running:
     if commande[0] == "modif":
         modifTache(commande)
 
-    if commande[0] == "remove":
+    if commande[0] in ["remove","rm"]:
         removeTache(commande)
 
     if commande[0] == "save":
