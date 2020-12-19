@@ -7,7 +7,6 @@
    ce qu'il y a à faire)
 
 ### Corrections à effectuer
- - rajouter le cas où l'id n'existe pas dans getIndiceTache()
  - permettre l'utilisation d'espaces dans les descriptions
  - empecher deux taches d'avoir le meme nom
  - possibilité de supprimer plusieurs taches en meme temps

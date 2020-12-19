@@ -19,10 +19,14 @@ nameFichier = "todo.ltdl"
 
 #Permet de récupérer l'emplacement de la tache id dans la liste
 def getIndiceTache(id):
+    indice = -1
     i = 0
-    while listeTaches[i].getId() != id:
+    while (indice == -1) and (i < len(listeTaches)):
+        if listeTaches[i].getId() == id:
+            indice = i
         i += 1
-    return i
+    return indice
+
 
 
 #Créée une tache à partir de la commande, l'ajoute dans la liste des taches
@@ -55,26 +59,30 @@ def addTache(commande):
 def modifTache(commande):
     indice = getIndiceTache(int(commande[1]))
 
-    t = listeTaches[indice]
+    if indice == -1:
+        print("La Tache que vous voulez modifier n'existe pas")
 
-    for i in range(1, len(commande)):
+    else :
+        t = listeTaches[indice]
 
-        param = commande[i].split("=")
+        for i in range(1, len(commande)):
 
-        if param[0] in ["n","name"]:
-            t.setName(param[1])
+            param = commande[i].split("=")
 
-        if param[0] in ["d", "date"]:
-            if param[1] == "today":
-                t.setDeadline(dt.date.today())
-            else:
-                t.setDeadline(dt.date.fromisoformat(param[1]))
+            if param[0] in ["n","name"]:
+                t.setName(param[1])
 
-        if param[0] in ["p", "priorite"]:
-            t.setPriorite(int(priorite))
+            if param[0] in ["d", "date"]:
+                if param[1] == "today":
+                    t.setDeadline(dt.date.today())
+                else:
+                    t.setDeadline(dt.date.fromisoformat(param[1]))
 
-        if param[0] in ["dc", "description"]:
-            t.setDescription(param[1])
+            if param[0] in ["p", "priorite"]:
+                t.setPriorite(int(priorite))
+
+            if param[0] in ["dc", "description"]:
+                t.setDescription(param[1])
 
 
 
@@ -82,9 +90,13 @@ def modifTache(commande):
 #Supprime la tache en ieme position dans la liste générale :
 def removeTache(commande):
     indice = getIndiceTache(int(commande[1]))
-    print("Effectuer la suppression de ",listeTaches[indice].getName(), "? [O/n] :  ", end="")
-    if input() in ["O","o",""]:
-        del listeTaches[indice]
+    if indice == -1:
+        print("La Tache que vous voulez supprimer n'existe pas")
+
+    else :
+        print("Effectuer la suppression de ",listeTaches[indice].getName(), "? [O/n] :  ", end="")
+        if input() in ["O","o","","Y","y","yes"]:
+            del listeTaches[indice]
 
 
 #Affiche toutes les taches
