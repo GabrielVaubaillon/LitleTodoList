@@ -12,5 +12,5 @@ Petite gestion en ligne de commandes de ma todo list. Deadlines, taches recurent
  - modif : (modif [id] [parametres]) : permet de modifier les caracteristiques de la ID, voir les parametres de la commande add  
     - parametre supplémentaire par rapport à add :
         - name : permet de changer le nom
- - remove : (remove [id]) : retire la tache correspondant à l'id
+ - remove : (remove *[id]) : retire les tache correspondant à l'id
  - save : (save) : Met à jour le fichier de sauvegarde (peut etre faire ça après chaque modif, à réfléchir)

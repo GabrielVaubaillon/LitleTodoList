@@ -89,14 +89,16 @@ def modifTache(commande):
 
 #Supprime la tache en ieme position dans la liste générale :
 def removeTache(commande):
-    indice = getIndiceTache(int(commande[1]))
-    if indice == -1:
-        print("La Tache que vous voulez supprimer n'existe pas")
 
-    else :
-        print("Effectuer la suppression de ",listeTaches[indice].getName(), "? [O/n] :  ", end="")
-        if input() in ["O","o","","Y","y","yes"]:
-            del listeTaches[indice]
+    for i in  range(1, len(commande)):
+        indice = getIndiceTache(int(commande[i]))
+        if indice == -1:
+            print("La Tache " + commande[i] + " n'existe pas")
+
+        else :
+            print("Effectuer la suppression de ",listeTaches[indice].getName(), "? [O/n] :  ", end="")
+            if input() in ["O","o","","Y","y","yes"]:
+                del listeTaches[indice]
 
 
 #Affiche toutes les taches
