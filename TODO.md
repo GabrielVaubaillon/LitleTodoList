@@ -1,8 +1,9 @@
 
-**deadline :  20-decembre (2020)**
+**deadline :  20-janvier (2021)**
 
 ### TODO next time
- - Dates sans l'année en param de add
+ - Update readme pour les formats des dates
+ - implémenter les catégories
  - Faire une commande list complete (ça va etre la plus importante pour savoir
    ce qu'il y a à faire)
 
@@ -12,6 +13,7 @@
  afficher l'aide de cette commande
  - Ajouter la commande help pour toutes les autres commandes
  - affichage d'une seule tache, avec sa description
+ - ajouter des commentaires / Organiser un peu le code
 
 ### Idées pour le programme todo list
  - interface style console "todo add title=Exercice 3 priority=High cat=Signaux date=18-11"

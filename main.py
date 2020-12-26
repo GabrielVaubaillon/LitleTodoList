@@ -1,7 +1,7 @@
 import tache
 import fichiers
 
-import datetime as dt
+import dates
 import os #Pour écrire/supprimer les fichiers, TODO : surement une meilleure technique
 
 #------------------------------------------------------------------------------
@@ -27,6 +27,54 @@ def getIndiceTache(id):
         i += 1
     return indice
 
+def dateFromCommand(strdate):
+    date = dates.Date(dates.TODAY.getDay(), dates.TODAY.getMonth(), dates.TODAY.getYear())
+
+    if strdate in ["t","today"]:
+        pass
+
+    elif strdate in ["tm","tomorow","nd","nday","nextday"]:
+        date.addDays(1)
+
+    elif strdate in ["w","nw","nweek","nextweek"]:
+        date.addDays(7)
+
+    elif strdate in ["tw","twow","twoweek"]:
+        date.addDays(14)
+
+    elif strdate in ["nm","nmonth","nextmonth"]:
+        date.addDays(30)
+
+    elif strdate in ["twomonth"]:
+        date.addDays(60)
+
+    elif strdate in ["ny","nyear","nextyear"]:
+        date.addYear()
+
+    elif ("-" in strdate) or ("/" in strdate):
+        if "-" in strdate:
+            param = strdate.split("-")
+        else:
+            param = strdate.split("/")
+
+        if len(param) == 2:#dd-mm
+            date = Date(int(param[0]), int(param[1]),dates.TODAY.getYear() )
+            if date < dates.TODAY:
+                date.addYear()
+
+        elif len(param) == 3 and len(param[0] > 2):#yyyy-mm-dd
+            date = Date(int(param[2]), int(param[1]), int(param[0]))
+        elif len(param) == 3:#dd-mm-yyyy
+            date = Date(int(param[0]), int(param[1]), int(param[2]))
+
+    else:
+        #La date n'est pas exprimée dans un fromat connu
+        return None
+
+    return date
+
+
+
 
 
 #Créée une tache à partir de la commande, l'ajoute dans la liste des taches
@@ -41,17 +89,19 @@ def addTache(commande):
 
         param = commande[i].split("=")
 
-        if param[0] in ["d", "date"]:
-            if param[1] == "today":
-                t.setDeadline(dt.date.today())
-            else:
-                t.setDeadline(dt.date.fromisoformat(param[1]))
+        if len(param) > 1:
+            if param[0] in ["d", "date"]:
+                date = dateFromCommand(param[1])
+                if date != None:
+                    t.setDeadline(date)
+                else:
+                    print("Date non valide")
 
-        if param[0] in ["p", "priorite"]:
-            t.setPriorite(int(priorite))
+            if param[0] in ["p", "priorite"]:
+                t.setPriorite(int(priorite))
 
-        if param[0] in ["dc", "description"]:
-            t.setDescription(param[1])
+            if param[0] in ["dc", "description"]:
+                t.setDescription(param[1])
 
     listeTaches.append(t)
 
@@ -73,10 +123,11 @@ def modifTache(commande):
                 t.setName(param[1])
 
             if param[0] in ["d", "date"]:
-                if param[1] == "today":
-                    t.setDeadline(dt.date.today())
+                date = dateFromCommand(param[1])
+                if date != None:
+                    t.setDeadline(date)
                 else:
-                    t.setDeadline(dt.date.fromisoformat(param[1]))
+                    print("Date non valide")
 
             if param[0] in ["p", "priorite"]:
                 t.setPriorite(int(priorite))
