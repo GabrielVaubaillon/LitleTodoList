@@ -12,6 +12,8 @@ class Tache:
         self.description = description
         self.priorite = priorite
 
+    # set Attributs :
+    #---------------
     def setName(self, name):
         self.name = name
 
@@ -24,7 +26,7 @@ class Tache:
     def setPriorite(self, priorite):
         self.priorite = priorite
 
-    # Méthodes :
+    # get Attributs :
     #-----------
     def getName(self):
         return self.name
@@ -35,6 +37,8 @@ class Tache:
     def getDate(self):
         return self.deadline
 
+    # Formats :
+    #---------------
     def strDeadline(self):
         if self.deadline != None:
             return str(self.deadline)
@@ -46,7 +50,7 @@ class Tache:
         ch += str(self.priorite) + "\\"
         ch += self.description + "\\"
         return ch
-
+#END class Tache
 
 #Retourne la Tache correspondant à la chaine de caractere de sauvegarde
 def fromSaveToTache(save, id):

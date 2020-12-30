@@ -1,14 +1,18 @@
+
+#------------------------------------------------------------------------------
+#       Imports :
+#------------------------------------------------------------------------------
+
+# Fichiers :
 import tache
 import fichiers
-
 import dates
-import os #Pour écrire/supprimer les fichiers, TODO : surement une meilleure technique
 
 #------------------------------------------------------------------------------
 #       Config :
 #------------------------------------------------------------------------------
 
-#Le fichier de sauvegarde des taches
+#Le chemin du fichier de sauvegarde des taches
 nameFichier = "todo.ltdl"
 
 
@@ -18,6 +22,9 @@ nameFichier = "todo.ltdl"
 #------------------------------------------------------------------------------
 
 #Permet de récupérer l'emplacement de la tache id dans la liste
+#param : id, entier positif, l'identifiant de la tache recherchée
+#return : entier, l'indice de la tache dans la liste des taches,
+#       -1 si non trouvé
 def getIndiceTache(id):
     indice = -1
     i = 0
@@ -26,53 +33,6 @@ def getIndiceTache(id):
             indice = i
         i += 1
     return indice
-
-def dateFromCommand(strdate):
-    date = dates.Date(dates.TODAY.getDay(), dates.TODAY.getMonth(), dates.TODAY.getYear())
-
-    if strdate in ["t","today"]:
-        pass
-
-    elif strdate in ["tm","tomorow","nd","nday","nextday"]:
-        date.addDays(1)
-
-    elif strdate in ["w","nw","nweek","nextweek"]:
-        date.addDays(7)
-
-    elif strdate in ["tw","twow","twoweek"]:
-        date.addDays(14)
-
-    elif strdate in ["nm","nmonth","nextmonth"]:
-        date.addDays(30)
-
-    elif strdate in ["twomonth"]:
-        date.addDays(60)
-
-    elif strdate in ["ny","nyear","nextyear"]:
-        date.addYear()
-
-    elif ("-" in strdate) or ("/" in strdate):
-        if "-" in strdate:
-            param = strdate.split("-")
-        else:
-            param = strdate.split("/")
-
-        if len(param) == 2:#dd-mm
-            date = Date(int(param[0]), int(param[1]),dates.TODAY.getYear() )
-            if date < dates.TODAY:
-                date.addYear()
-
-        elif len(param) == 3 and len(param[0] > 2):#yyyy-mm-dd
-            date = Date(int(param[2]), int(param[1]), int(param[0]))
-        elif len(param) == 3:#dd-mm-yyyy
-            date = Date(int(param[0]), int(param[1]), int(param[2]))
-
-    else:
-        #La date n'est pas exprimée dans un fromat connu
-        return None
-
-    return date
-
 
 
 
@@ -91,21 +51,21 @@ def addTache(commande):
 
         if len(param) > 1:
             if param[0] in ["d", "date"]:
-                date = dateFromCommand(param[1])
+                date = dates.dateFromString(param[1])
                 if date != None:
                     t.setDeadline(date)
                 else:
                     print("Date non valide")
 
             if param[0] in ["p", "priorite"]:
-                t.setPriorite(int(priorite))
+                t.setPriorite(int(param[1]))
 
             if param[0] in ["dc", "description"]:
                 t.setDescription(param[1])
 
     listeTaches.append(t)
 
-#Modifie les caracteristiques de la tache choisie et dans la liste des taches
+#Modifie la tache choisie
 def modifTache(commande):
     indice = getIndiceTache(int(commande[1]))
 
@@ -123,14 +83,14 @@ def modifTache(commande):
                 t.setName(param[1])
 
             if param[0] in ["d", "date"]:
-                date = dateFromCommand(param[1])
+                date = dates.dateFromString(param[1])
                 if date != None:
                     t.setDeadline(date)
                 else:
                     print("Date non valide")
 
             if param[0] in ["p", "priorite"]:
-                t.setPriorite(int(priorite))
+                t.setPriorite(int(param[1]))
 
             if param[0] in ["dc", "description"]:
                 t.setDescription(param[1])
@@ -138,8 +98,10 @@ def modifTache(commande):
 
 
 
-#Supprime la tache en ieme position dans la liste générale :
+#Supprime les tache id de la liste des taches :
 def removeTache(commande):
+    #TODO : creer une corbeille, la vider automatiquement au bout d'un certain
+    #temps
 
     for i in  range(1, len(commande)):
         indice = getIndiceTache(int(commande[i]))
@@ -152,23 +114,22 @@ def removeTache(commande):
                 del listeTaches[indice]
 
 
-#Affiche toutes les taches
+#Affiche les taches en les filtrant/triant selon les parametres
 def listTaches(commande):
     listeAffichage = listeTaches[:]
+    #On trie puis filtre la liste des taches en fonction des parametres :
     if len(commande) > 1 and commande[1] == "date":
         listeAffichage.sort(key= lambda tache : tache.getDate())
 
+    #On affiche la liste triée :
     for i in range(len(listeAffichage)):
         t = listeAffichage[i]
         print("-",t.getId(),":",t.getName(), "   ", t.strDeadline())
 
 
 #------------------------------------------------------------------------------
-#       Exectution
+#       Variables globales
 #------------------------------------------------------------------------------
-#Petit message de bienvenue
-print("\n\nLitleTodoList :)\n------------\n\n")
-
 
 #Liste de toutes les taches :
 listeTaches = []
@@ -179,15 +140,26 @@ fichiers.readTaches(listeTaches, nameFichier)
 #que les augmenter durant toute l'execution, meme si suppressions
 NEWID = len(listeTaches)
 
+#------------------------------------------------------------------------------
+#       Exectution
+#------------------------------------------------------------------------------
+
+#Petit message de bienvenue
+print("\n\nLitleTodoList :)\n------------\n\n")
+
 
 running = True
 while running:
     commande = input("> ")
     #On découpe la commande en coupant aux espaces
+    #Note : ça veut dire, qu'il ne faut pas d'espaces dans les noms des taches,
+    # ni dans leurs descriptions
     commande = commande.split(" ")
 
     if commande[0] in ["q","exit","quit"]:
+        #On sauvegarde
         fichiers.write(listeTaches, nameFichier)
+        #On quitte le programme
         running = False
 
     if commande[0] in ["list", "ls"]:
