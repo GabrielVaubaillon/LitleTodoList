@@ -9,7 +9,7 @@ def readTaches(liste, fichier):
 
     for i in range(len(lignes)):
         if lignes[i] != "\n":
-            liste.append(tache.fromSaveToTache(lignes[i][:-1],i))
+            liste.append(tache.fromSaveToTache(lignes[i][:-1], i))
 
 
 #Sauvegarde la liste des taches dans un fichier :

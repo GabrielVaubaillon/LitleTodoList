@@ -8,11 +8,11 @@
 
 ### fonctionnalités à implémenter
 - [ ] lister les taches
- - [ ] afficher une tache seule avec toutes ses infos
- - [x] lister par date
- - [ ] liste par ordre de priorité (en fonction de la priorité et du temps restant)
- - [ ] filtre par catégories
- - [ ] options pour différents modes d'affichage, on a pas toujours besoin de tout voir
+  - [ ] afficher une tache seule avec toutes ses infos
+  - [x] lister par date
+  - [ ] liste par ordre de priorité (en fonction de la priorité et du temps restant)
+  - [ ] filtre par catégories
+  - [ ] options pour différents modes d'affichage, on a pas toujours besoin de tout voir
 - [ ] hierarchie des catégories ? (catégories de catégories)
 - [ ] catégories multiples pour une tache
 - [ ] date prévue d'execution (je choisit de faire ça tel jour, avant la deadline)
@@ -24,8 +24,6 @@
 - [ ] hierarchie des taches (diviser une grosse tache en plusieurs taches plus petites)
 
 ### Corrections à effectuer
-- BUG dans tache.py ligne 49 : crash si pas de deadline. Necessite surement une correction
-dans fromSaveToTache() aussi.
 - permettre l'utilisation d'espaces dans les descriptions
 - corbeille pour les taches supprimées, supression totale à la fermeture du programme
 - afficher 01 au lieu de 1 dans les dates

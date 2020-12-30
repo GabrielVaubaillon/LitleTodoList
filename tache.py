@@ -46,7 +46,10 @@ class Tache:
     #Retourne la chaine de caractere de sauvegarde de la tache
     def strSave(self):
         ch = self.name + "\\"
-        ch += self.deadline.strSave() + "\\"
+        if self.deadline != None:
+            ch += self.deadline.strSave() + "\\"
+        else:
+            ch+= "None" + "\\"
         ch += str(self.priorite) + "\\"
         ch += self.description + "\\"
         return ch
@@ -57,7 +60,9 @@ def fromSaveToTache(save, id):
     save = save.split("\\")
     name = save[0]
     t = Tache(name, int(id))
-    t.setDeadline(dates.dateFromTxt(save[1]))
+    
+    if save[1] != "None":
+        t.setDeadline(dates.dateFromTxt(save[1]))
     t.setPriorite(int(save[2]))
     t.setDescription(save[3])
     return t
