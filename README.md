@@ -1,12 +1,14 @@
 # LitleTodoList
+
+**NOT UPDATED**
+
 Petite gestion en ligne de commandes de ma todo list. Deadlines, taches recurentes, priorités et catégories
 
 ### Commandes
 - list (or ls): liste les taches
   - ls date : taches triées par date croissantes
-- add : (add [name] [parametres]) : ajoute/créé une nouvelle tache
-  - parametres : [cmd]=[value] ; les parametres non précisés recevrons une valeur par défaut  
-cmd:
+- add : (add [name] [parametres]) : ajoute/créé une nouvelle tache  
+parametres : [cmd]=[value] ; les parametres non précisés recevrons une valeur par défaut  
    - d or date : d=2020-12-24 : donne la deadline de la tache
    - dc or description : dc=Penser_à_faire_ça_comme_ceci : une courte description pour mieux comprendre la tache
    - p or priorite : p=[entier] : 5 par défaut, les plus importantes à 10, les moins importantes à 0

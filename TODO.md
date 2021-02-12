@@ -1,5 +1,5 @@
 
-**deadline :  20-janvier (2021)**
+**NOT UPDATED**
 
 ### TODO next time
 - implémenter les catégories
