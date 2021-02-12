@@ -50,21 +50,21 @@ def createTask(tasklist, command):
         com = com.split(" ",1)
 
         if com[0] == "d" or com[0] == "date":
-            task.set_deadline( dates.dateFromString( com[1] ) )
+            task.set_deadline( dates.dateFromString( com[1].strip(" ") ) )
 
         if com[0] == "du" or com[0] == "duration":
             d = float(com[1])
             task.set_duration(d)
 
         if com[0] == "nd" or com[0] == "nextdate":
-            if com[1] == "None ":
+            if com[1].strip(" ") == "None":
                 task.set_nextDeadline(None)
             else:
                 # On enleve l'espace de fin
-                task.set_nextDeadline(com[1][:-1])
+                task.set_nextDeadline(com[1].strip(" "))
 
         if com[0] == "dc" or com[0] == "description":
-            task.set_description(command[1])
+            task.set_description(com[1])
 
         if com[0] == "p" or com[0] == "priorite":
             p = int(com[1])
@@ -88,32 +88,32 @@ def modifTask(tasklist, command):
 
     task = tasklist.get_task(idTask)
 
-    # NOTE: ce qu'il y a après ressemble beaucoup à la fonction modif, peut
+    # NOTE: ce qu'il y a après ressemble beaucoup à la fonction create, peut
     # être moyen de les rassembler en une seule fonction
     command = command[1:]
 
     for com in command:
         com = com.split(" ",1)
 
-        if com[0] == "n" or comm[0] == "name":
+        if com[0] == "n" or com[0] == "name":
             task.set_name(comm[1])
 
         if com[0] == "d" or com[0] == "date":
-            task.set_deadline( dates.dateFromString( com[1] ) )
+            task.set_deadline( dates.dateFromString( com[1].strip(" ") ) )
 
         if com[0] == "du" or com[0] == "duration":
             d = float(com[1])
             task.set_duration(d)
 
         if com[0] == "nd" or com[0] == "nextdate":
-            if com[1] == "None ":
+            if com[1].strip(" ") == "None":
                 task.set_nextDeadline(None)
             else:
                 # On enleve l'espace de fin
-                task.set_nextDeadline(com[1][:-1])
+                task.set_nextDeadline(com[1].strip(" "))
 
         if com[0] == "dc" or com[0] == "description":
-            task.set_description(command[1])
+            task.set_description(com[1])
 
         if com[0] == "p" or com[0] == "priorite":
             p = int(com[1])
@@ -127,24 +127,24 @@ def modifTask(tasklist, command):
 def printTask(tasklist, command):
     id = int(command)
     task = tasklist.get_task(id)
-    print(task)
+    print(task.strall())
 
 def printList(tasklist):
-    print(tasklist)
+    print(tasklist,end='')
 
 def taskDone(tasklist, command):
     id = int(command)
     needToDelete = (tasklist.get_task(id)).done()
     if needToDelete:
-        tasklist.remove(id)
+        tasklist.removeTask(id)
 
 def createCategory(categoriesList, command):
-    cat = Category(command)
+    cat = categories.Category(command)
     categoriesList.append(cat)
 
 def removeCategory(categoriesList, command):
     # peut etre faire une fonction pour trouver la catégorie dans la liste
-    name = command
+    name = command.strip("\n")
     i = 0
     found = False
     while not found and i < len(categoriesList):
@@ -152,6 +152,10 @@ def removeCategory(categoriesList, command):
         i += 1
     if found:
         del categoriesList[i - 1]
+
+def printCategories(categoriesList):
+    for cat in categoriesList:
+        print(cat)
 
 def linkTaskCategory(command):
     command = command.split(" ")
@@ -177,6 +181,13 @@ def unLinkTaskCategory(command):
         i += 1
     categoriesList[i - 1].removeTask(idTask)
 
+def save():
+    tasklist.save(saveFileName)
+    categories.save(saveCategories, categoriesList)
+
+    f = open(saveID, "w")
+    f.write(str(NEWID))
+    f.close()
 
 #------------------------------------------------------------------------------
 #       Exectution
@@ -200,38 +211,42 @@ while running:
     command = command.split(" ", 1)
 
     if command[0] == "exit":
-        tasklist.save(saveFileName)
+        # NOTE : Peut etre save avant de quitter ??
 
         running = False
 
-    if command[0] == "save":
-        tasklist.save(saveFileName)
+    elif command[0] == "save":
+        save()
 
-    if command[0] == "create":
+    elif command[0] == "create":
         createTask(tasklist, command[1])
 
-    if command[0] == "rm":
+    elif command[0] == "rm":
         removeTask(command[1])
 
-    if command[0] == "ch":
-        modifTask(command[1])
+    elif command[0] == "ch":
+        modifTask(tasklist, command[1])
 
-    if command[0] == "cat-create":
+    elif command[0] == "cat-create":
         createCategory(categoriesList, command[1])
 
-    if command[0] == "cat-remove":
+    elif command[0] == "cat-remove" or command[0] == "cat-rm":
         removeCategory(categoriesList, command[1])
 
-    if command[0] == "done":
+    elif command[0] == "cat-ls":
+        printCategories(categoriesList)
+
+    elif command[0] == "done":
         taskDone(tasklist, command[1])
 
-    if command[0] == "ls":
+    elif command[0] == "ls":
         if len(command) > 1:
             printTask(tasklist, command[1])
-        printList(tasklist)
+        else:
+            printList(tasklist)
 
-    if command[0] == "cat":
+    elif command[0] == "cat":
         linkTaskCategory(command[1])
 
-    if command[0] == "catrm":
+    elif command[0] == "catrm":
         unLinkTaskCategory(command[1])

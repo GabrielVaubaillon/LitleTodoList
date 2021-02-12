@@ -36,7 +36,7 @@ class Tache:
     # type : Date (from dates.py) or None
     def set_deadline(self, date):
         # TODO :The date shall not be after the deadline of a Higher task (see ParentTask)
-        self.date = date
+        self.deadline = date
 
     # The duration represent the time the user think will be needed to
     # perform the task in hours.
@@ -57,7 +57,7 @@ class Tache:
     # completer la tache.
     # type : string
     def set_description(self, description):
-        self.description = description
+        self.description = description.strip("\n")
 
     # The task priority allows us to sort task, and promote those who really
     # need to be put first
@@ -102,7 +102,7 @@ class Tache:
     def done(self):
         if self.nextDeadline != None:
             if self.nextDeadline != "perpetual":
-                self.deadline = dateFromString(self.nextDeadline)
+                self.deadline = dates.dateFromString(self.nextDeadline)
             return False
         return True
 
@@ -115,24 +115,26 @@ class Tache:
 
     def strall(self):
         # NOTE: maybe display categories too
-        string = "Task :" + self.id + "\n"
-        string += "name :" + self.name + "\n"
-        string += "deadline :" + self.deadline + "\n"
-        string += "duration :" + self.duration + "\n"
-        string += "nextDeadline :" + self.nextDeadline + "\n"
-        string += "priorite :" + self.priorite + "\n"
-        string += "subTasks :" + self.subTasks + "\n"
-        string += "description :" + self.description + "\n"
+        string = "Task : " + str(self.id) + "\n"
+        string += "name : " + self.name + "\n"
+        string += "deadline : " + str(self.deadline) + "\n"
+        string += "duration : " + str(self.duration) + "\n"
+
+        string += "nextDeadline : " + str(self.nextDeadline) + "\n"
+
+        string += "priorite : " + str(self.priorite) + "\n"
+        string += "subTasks : " + str(self.subTasks) + "\n"
+        string += "description : " + self.description + "\n"
         return string
 
     def strSave(self):
-        string = self.id + ";"
+        string = str(self.id) + ";"
         string += self.name + ";"
-        string += self.deadline + ";"
-        string += self.duration + ";"
-        string += self.nextDeadline + ";"
-        string += self.priorite + ";"
-        for i in self.subtasks:
+        string += str(self.deadline) + ";"
+        string += str(self.duration) + ";"
+        string += str(self.nextDeadline) + ";"
+        string += str(self.priorite) + ";"
+        for i in self.subTasks:
             string += str(i) + ","
         string += ";"
         string += self.description + "\n"
@@ -144,12 +146,25 @@ def taskFromSave(string):
     task = Tache(int(string[0]))
 
     task.set_name(string[1])
-    task.set_deadline(dateFromString(string[2]))
+
+    if string[2] == "None":
+        task.set_deadline(None)
+    else:
+        task.set_deadline(dates.dateFromString(string[2]))
+
     task.set_duration(float(string[3]))
-    task.set_nextDeadline(string[4])
+
+    if string[4] == "None":
+        task.set_nextDeadline(None)
+    else:
+        task.set_nextDeadline(string[4])
+
     task.set_priorite(int(string[5]))
-    for i in [int(id) for id in string[6].split(",")]:
-        task.add_subTask(i)
-    task.set_description(str[7][:-1])
-    
+
+    if len(string[6]) > 0:
+        for i in [int(id) for id in string[6].split(",")]:
+            task.add_subTask(i)
+
+    task.set_description(string[7])
+
     return task

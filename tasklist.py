@@ -11,7 +11,7 @@ class Tasklist:
         found = False
         i = 0
         while not(found) and i < len(self.list):
-            found = idTask == self.list[i].id
+            found = taskId == self.list[i].id
             i += 1
 
         if found:
@@ -47,7 +47,7 @@ class Tasklist:
         lines = f.readlines()
         f.close()
         for line in lines:
-            self.list.append(taskFromSave(line))
+            self.list.append(tache.taskFromSave(line))
 
     def print(self):
         for task in self.list:
@@ -70,5 +70,5 @@ class Tasklist:
     def __str__(self):
         string = ""
         for task in self.list:
-            string += str(task)
+            string += str(task) + "\n"
         return string

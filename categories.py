@@ -23,9 +23,14 @@ class Category:
             # Minus one because id get incremented one time after we found it
             del self.tasks[i - 1]
 
+    def __str__(self):
+        string = self.name + " : "
+        string += str(self.tasks)
+        return string
+
     def strSave(self):
         string = str(self.name) + ";"
-        for idTask in self.list:
+        for idTask in self.tasks:
             string += str(idTask) + ","
         string += "\n"
         return string
@@ -44,12 +49,13 @@ def save(fileName, categoriesList):
         f.write(category.strSave())
     f.close()
 
-def categoryFromSave(str):
-    str = str.split(";")
-    name = str[0]
-    idtasks = str[1].split(",")
-    idtask = [int(id) for id in idTask]
+def categoryFromSave(string):
+    string = string.split(";")
+    name = string[0]
     cat = Category(name)
-    for i in idTask:
-        cat.addTask(i)
+    if len(string[1]) > 1:
+        idtasks = string[1].split(",")
+        idtasks = [int(id) for id in idtasks]
+        for i in idtasks:
+            cat.addTask(i)
     return cat
