@@ -224,13 +224,13 @@ while running:
     elif command[0] == "rm":
         removeTask(command[1])
 
-    elif command[0] == "ch":
+    elif command[0] == "change" or command[0] == "ch":
         modifTask(tasklist, command[1])
 
     elif command[0] == "cat-create":
         createCategory(categoriesList, command[1])
 
-    elif command[0] == "cat-remove" or command[0] == "cat-rm":
+    elif command[0] == "cat-remove":
         removeCategory(categoriesList, command[1])
 
     elif command[0] == "cat-ls":

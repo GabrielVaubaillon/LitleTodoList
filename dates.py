@@ -194,11 +194,8 @@ def dateFromString(strdate):
         date.addYear()
 
     #Formats explicites : (yyyy-mm-dd, dd-mm, dd-mm-yyyy)
-    elif ("-" in strdate) or ("/" in strdate):
-        if "-" in strdate:
-            param = strdate.split("-")
-        else:
-            param = strdate.split("/")
+    elif ("/" in strdate):
+        param = strdate.split("/")
 
         #dd-mm
         if len(param) == 2:
