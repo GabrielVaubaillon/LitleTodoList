@@ -55,6 +55,7 @@ def categoryFromSave(string):
     cat = Category(name)
     if len(string[1]) > 1:
         idtasks = string[1].split(",")
+        idtasks = idtasks[:-1] # on retire le \n
         idtasks = [int(id) for id in idtasks]
         for i in idtasks:
             cat.addTask(i)

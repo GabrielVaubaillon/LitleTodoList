@@ -8,15 +8,15 @@ Petite gestion en ligne de commandes de ma todo list. Deadlines, taches recurent
 |----|----|----|
 | exit | `exit` | Ferme le programme ( Warning : pas de sauvegarde auto) |
 | save | `save` | Sauvegarde l'état de la todolist dans les fichiers |
-| create | `create [Name] [OPTIONS]` | Créer une nouvelle tache |
-| ls | `ls <id>` | Liste la tache id, si id non précisé toutes les taches |
+| create | `create [Name] [OPTIONS]` | Créer une nouvelle tache avec le nom *Name*. Voir section *Create / Change* pour les options |
+| ls | `ls <id>` | Liste la tache id, si id non précisé : toutes les taches |
 | done | `done <id>` | Marque la tache id comme faite |
 | remove / rm | `rm <id>` | supprimme la tache id |
-| change / ch | `ch <id> [OPTIONS]` | Permet de modifier la tache id |
+| change / ch | `ch <id> [OPTIONS]` | Permet de modifier la tache id. Voir section *Create / Change* pour les options|
 | cat | `cat <idTask> <CategoryName>` | Met la tache *idTask* dans la catégorie *CategoryName* |
 | catrm | `cat <idTask> <CategoryName>` | Retire la tache *idTask* de la catégorie *CategoryName* |
 | cat-create | `cat-create [Name]` | Crée une catégorie avec le nom *Name* |
-| cat-ls | `cact-ls` | Liste toute les catégories |
+| cat-ls | `cat-ls` | Liste toute les catégories |
 | cat-remove | `cat-remove <CategoryName>` | supprime la catégorie CategoryName |
 
 ## Détails
@@ -31,7 +31,7 @@ Les otpions de create et change permette d'agir sur une tache :
 
 | commande | abréviation | valeur | défaut |
 |-:|-:|:-|-:|
-| name | n | Le nom de la tache (Que dans change) |  |
+| name | n | Le nom de la tache (Que dans la fonction change) |  |
 | date | d | la deadline (voir section Dates) | None (pas de deadline) |
 | duration | du | Le temps (en heures) estimé nécessaire pour la tache | 0.0 |
 | nextdate | nd | pour les taches récurrentes, format implicite pour calculer la prochaine date (voir section Dates). Pour une tache perpetuelle sans deadline mettre : `perpetual`| None |
